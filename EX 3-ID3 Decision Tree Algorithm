@@ -1,0 +1,104 @@
+# ID3 Decision Tree Algorithm
+
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+from sklearn.tree import DecisionTreeClassifier, export_text
+
+# Play Tennis Dataset
+data = {
+    'Outlook': ['Sunny','Sunny','Overcast','Rain','Rain','Rain','Overcast',
+                'Sunny','Sunny','Rain','Sunny','Overcast','Overcast','Rain'],
+    'Temperature': ['Hot','Hot','Hot','Mild','Cool','Cool','Cool',
+                    'Mild','Cool','Mild','Mild','Mild','Hot','Mild'],
+    'Humidity': ['High','High','High','High','Normal','Normal','Normal',
+                 'High','Normal','Normal','Normal','High','Normal','High'],
+    'Wind': ['Weak','Strong','Weak','Weak','Weak','Strong','Strong',
+             'Weak','Weak','Weak','Strong','Strong','Weak','Strong'],
+    'PlayTennis': ['No','No','Yes','Yes','Yes','No','Yes',
+                   'No','Yes','Yes','Yes','Yes','Yes','No']
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Label Encoding
+le = LabelEncoder()
+for column in df.columns:
+    df[column] = le.fit_transform(df[column])
+
+# Features and Target
+X = df.iloc[:, :-1]
+y = df.iloc[:, -1]
+
+# Create ID3 Decision Tree
+model = DecisionTreeClassifier(criterion='entropy')
+model.fit(X, y)
+
+# Print Decision Tree Rules
+print("Decision Tree:")
+print(export_text(model, feature_names=list(X.columns)))
+
+# Prediction
+sample = [[2, 1, 0, 1]]   # Example encoded input
+prediction = model.predict(sample)
+
+print("\nPrediction:")
+if prediction[0] == 1:
+    print("Play Tennis = Yes")
+else:
+    print("Play Tennis = No")  
+
+OUTPUT:
+
+Decision Tree:
+|--- Outlook <= 0.50
+|   |--- class: 1
+|--- Outlook >  0.50
+|   |--- Humidity <= 0.50
+|   |   |--- Outlook <= 1.50
+|   |   |   |--- Wind <= 0.50
+|   |   |   |   |--- class: 0
+|   |   |   |--- Wind >  0.50
+|   |   |   |   |--- class: 1
+|   |   |--- Outlook >  1.50
+|   |   |   |--- class: 0
+|   |--- Humidity >  0.50
+|   |   |--- Wind <= 0.50
+|   |   |   |--- Temperature <= 1.00
+|   |   |   |   |--- class: 0
+|   |   |   |--- Temperature >  1.00
+|   |   |   |   |--- class: 1
+|   |   |--- Wind >  0.50
+|   |   |   |--- class: 1
+
+
+Prediction:
+Play Tennis = No
+Decision Tree:
+|--- Outlook <= 0.50
+|   |--- class: 1
+|--- Outlook >  0.50
+|   |--- Humidity <= 0.50
+|   |   |--- Outlook <= 1.50
+|   |   |   |--- Wind <= 0.50
+|   |   |   |   |--- class: 0
+|   |   |   |--- Wind >  0.50
+|   |   |   |   |--- class: 1
+|   |   |--- Outlook >  1.50
+|   |   |   |--- class: 0
+|   |--- Humidity >  0.50
+|   |   |--- Wind <= 0.50
+|   |   |   |--- Outlook <= 1.50
+|   |   |   |   |--- class: 0
+|   |   |   |--- Outlook >  1.50
+|   |   |   |   |--- class: 1
+|   |   |--- Wind >  0.50
+|   |   |   |--- class: 1
+
+
+Prediction:
+Play Tennis = No
+/usr/local/lib/python3.12/dist-packages/sklearn/utils/validation.py:2739: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
+/usr/local/lib/python3.12/dist-packages/sklearn/utils/validation.py:2739: UserWarning: X does not have valid feature names, but DecisionTreeClassifier was fitted with feature names
+  warnings.warn(
