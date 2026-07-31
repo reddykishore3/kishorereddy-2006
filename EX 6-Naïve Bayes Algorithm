@@ -1,0 +1,59 @@
+# Implementation of Naïve Bayes Algorithm
+
+# Import required libraries
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
+
+# Load the Iris dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+# Create Gaussian Naïve Bayes model
+model = GaussianNB()
+
+# Train the model
+model.fit(X_train, y_train)
+
+# Predict the test data
+y_pred = model.predict(X_test)
+
+# Display Confusion Matrix
+print("Confusion Matrix:")
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+
+# Display Accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print("\nAccuracy:", accuracy)
+
+# Display Classification Report
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred, target_names=iris.target_names))
+
+OUTPUT:
+
+Confusion Matrix:
+[[19  0  0]
+ [ 0 12  1]
+ [ 0  0 13]]
+
+Accuracy: 0.9777777777777777
+
+Classification Report:
+              precision    recall  f1-score   support
+
+      setosa       1.00      1.00      1.00        19
+  versicolor       1.00      0.92      0.96        13
+   virginica       0.93      1.00      0.96        13
+
+    accuracy                           0.98        45
+   macro avg       0.98      0.97      0.97        45
+weighted avg       0.98      0.98      0.98        45
