@@ -1,0 +1,62 @@
+# Implementation of Expectation-Maximization (EM) Algorithm
+
+# Import required libraries
+from sklearn.datasets import load_iris
+from sklearn.mixture import GaussianMixture
+from sklearn.metrics import accuracy_score
+import numpy as np
+
+# Load the Iris dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Create Gaussian Mixture Model (EM Algorithm)
+gmm = GaussianMixture(
+    n_components=3,
+    covariance_type='full',
+    random_state=42
+)
+
+# Train the model
+gmm.fit(X)
+
+# Predict cluster labels
+clusters = gmm.predict(X)
+
+# Match cluster labels with actual labels
+labels = np.zeros_like(clusters)
+
+for i in range(3):
+    mask = (clusters == i)
+    labels[mask] = np.bincount(y[mask]).argmax()
+
+# Calculate Accuracy
+accuracy = accuracy_score(y, labels)
+
+# Display Results
+print("Predicted Clusters:")
+print(clusters)
+
+print("\nMapped Class Labels:")
+print(labels)
+
+print("\nAccuracy:", accuracy)
+
+OUTPUT:
+
+Predicted Clusters:
+[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 2 0 2 0 2
+ 2 2 2 0 2 2 2 2 2 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0]
+
+Mapped Class Labels:
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 2 1 2 1
+ 1 1 1 2 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2]
+
+Accuracy: 0.9666666666666667
