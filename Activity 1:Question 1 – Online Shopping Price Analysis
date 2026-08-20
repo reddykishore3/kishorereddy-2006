@@ -1,0 +1,100 @@
+import numpy as np
+
+# 1. Create NumPy array with 20 random product prices
+np.random.seed(42)
+prices = np.random.randint(100, 5001, 20)
+
+print("Complete Product Prices:")
+print(prices)
+
+# 2. First 5 and last 5 prices using indexing
+print("\nFirst 5 Product Prices:")
+print(prices[:5])
+
+print("\nLast 5 Product Prices:")
+print(prices[-5:])
+
+# 3. Add 18% GST
+prices_gst = prices * 1.18
+
+print("\nPrices after 18% GST:")
+print(np.round(prices_gst, 2))
+
+# 4. Products costing more than ₹2500
+above_2500 = prices[prices > 2500]
+
+print("\nProducts costing more than ₹2500:")
+print(above_2500)
+
+# 5. Products costing between ₹1000 and ₹3000
+between_1000_3000 = prices[(prices >= 1000) & (prices <= 3000)]
+
+print("\nProducts between ₹1000 and ₹3000:")
+print(between_1000_3000)
+
+# 6. Minimum and maximum price
+print("\nMinimum Price:", np.min(prices))
+print("Maximum Price:", np.max(prices))
+
+# 7. Statistics
+print("\nMean:", np.mean(prices))
+print("Median:", np.median(prices))
+print("Variance:", np.var(prices))
+print("Standard Deviation:", np.std(prices))
+
+# 8. Total value of all products
+print("\nTotal Value of Products:", np.sum(prices))
+
+# 9. Count products above average price
+average = np.mean(prices)
+count_above_average = np.sum(prices > average)
+
+print("Average Price:", average)
+print("Products above Average:", count_above_average)
+
+# 10. Save final product-price data into CSV
+np.savetxt(
+    "products.csv",
+    prices_gst,
+    delimiter=",",
+    header="Price_After_GST",
+    comments="",
+    fmt="%.2f"
+)
+
+print("\nFinal product-price data saved to products.csv")
+OUTPUT:
+Complete Product Prices:
+[ 960 3872 3192  566 4526 3544 3271 3019  230 1785  869 2491 2533 1284
+ 4655 3485 4217 4943 3004  574]
+
+First 5 Product Prices:
+[ 960 3872 3192  566 4526]
+
+Last 5 Product Prices:
+[3485 4217 4943 3004  574]
+
+Prices after 18% GST:
+[1132.8  4568.96 3766.56  667.88 5340.68 4181.92 3859.78 3562.42  271.4
+ 2106.3  1025.42 2939.38 2988.94 1515.12 5492.9  4112.3  4976.06 5832.74
+ 3544.72  677.32]
+
+Products costing more than ₹2500:
+[3872 3192 4526 3544 3271 3019 2533 4655 3485 4217 4943 3004]
+
+Products between ₹1000 and ₹3000:
+[1785 2491 2533 1284]
+
+Minimum Price: 230
+Maximum Price: 4943
+
+Mean: 2651.0
+Median: 3011.5
+Variance: 2118689.5
+Standard Deviation: 1455.5718807396631
+
+Total Value of Products: 53020
+Average Price: 2651.0
+Products above Average: 11
+
+Final product-price data saved to products.csv
