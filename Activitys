@@ -1,0 +1,183 @@
+import numpy as np
+
+# 1. Generate electricity consumption for 12 months
+np.random.seed(42)
+consumption = np.random.randint(100, 801, 12)
+
+print("Monthly Electricity Consumption:")
+print(consumption)
+
+# 2. First 3 months
+print("\nFirst 3 Months:")
+print(consumption[:3])
+
+# 3. Last month's consumption using negative indexing
+print("\nLast Month Consumption:", consumption[-1], "units")
+
+# 4. Calculate electricity bill at ₹6 per unit
+bill = consumption * 6
+
+print("\nElectricity Bill for Each Month:")
+print(bill)
+
+# 5. Filter months consuming more than 500 units
+above_500 = consumption[consumption > 500]
+
+print("\nConsumption Above 500 Units:")
+print(above_500)
+
+# 6. Minimum and maximum consumption
+print("\nMinimum Consumption:", np.min(consumption), "units")
+print("Maximum Consumption:", np.max(consumption), "units")
+
+# 7. Total annual electricity consumption
+total = np.sum(consumption)
+
+print("\nTotal Annual Consumption:", total, "units")
+
+Question 3 – Monthly Electricity Consumption
+
+# 8. Average, variance and standard deviation
+average = np.mean(consumption)
+
+print("Average Consumption:", average, "units")
+print("Variance:", np.var(consumption))
+print("Standard Deviation:", np.std(consumption))
+
+# 9. Count months below average
+below_average = np.sum(consumption < average)
+
+print("\nMonths Below Average:", below_average)
+
+# 10. Save monthly data into electricity.csv
+data = np.column_stack((consumption, bill))
+
+np.savetxt(
+    "electricity.csv",
+    data,
+    delimiter=",",
+    header="Consumption_Units,Bill_Rs",
+    comments="",
+    fmt="%.2f"
+)
+
+print("\nMonthly data saved to electricity.csv")
+
+OUTPUT:
+
+Monthly Electricity Consumption:
+[202 535 370 206 171 800 120 714 221 566 314 430]
+
+First 3 Months:
+[202 535 370]
+
+Last Month Consumption: 430 units
+
+Electricity Bill for Each Month:
+[1212 3210 2220 1236 1026 4800  720 4284 1326 3396 1884 2580]
+
+Consumption Above 500 Units:
+[535 800 714 566]
+
+Minimum Consumption: 120 units
+Maximum Consumption: 800 units
+
+Total Annual Consumption: 4649 units
+Average Consumption: 387.4166666666667 units
+Variance: 45949.5763888889
+Standard Deviation: 214.358523014339
+
+Months Below Average: 7
+
+Monthly data saved to electricity.csv
+
+Question 4 – Mobile Phone Battery Performance
+
+import numpy as np
+
+# 1. Generate battery percentages for 20 time intervals
+np.random.seed(42)
+battery = np.random.randint(5, 101, 20)
+
+print("Battery Readings:")
+print(battery)
+
+# 2. First, fifth, tenth, and last readings
+print("\nFirst Reading:", battery[0], "%")
+print("Fifth Reading:", battery[4], "%")
+print("Tenth Reading:", battery[9], "%")
+print("Last Reading:", battery[-1], "%")
+
+# 3. Battery values below 20%
+below_20 = battery[battery < 20]
+
+print("\nBattery Below 20%:")
+print(below_20)
+
+# 4. Battery levels between 30% and 70%
+between_30_70 = battery[(battery >= 30) & (battery <= 70)]
+
+print("\nBattery Between 30% and 70%:")
+print(between_30_70)
+
+# 5. Average battery percentage
+average = np.mean(battery)
+
+print("\nAverage Battery:", average, "%")
+
+# 6. Minimum and maximum battery percentage
+print("Minimum Battery:", np.min(battery), "%")
+print("Maximum Battery:", np.max(battery), "%")
+
+# 7. Variance and standard deviation
+print("Variance:", np.var(battery))
+print("Standard Deviation:", np.std(battery))
+
+# 8. Count readings below average
+below_average = np.sum(battery < average)
+
+print("\nReadings Below Average:", below_average)
+
+# 9. Sum of all battery readings
+total = np.sum(battery)
+
+print("Sum of All Battery Readings:", total, "%")
+
+# 10. Save results into battery.csv
+np.savetxt(
+    "battery.csv",
+    battery,
+    delimiter=",",
+    header="Battery_Percentage",
+    comments="",
+    fmt="%d"
+)
+
+print("\nBattery data saved to battery.csv")
+
+OUTPUT:
+
+Battery Readings:
+[56 97 19 76 65 25 87 91 79 79 92 28  7 26 57  6 92 34 42  6]
+
+First Reading: 56 %
+Fifth Reading: 65 %
+Tenth Reading: 79 %
+Last Reading: 6 %
+
+Battery Below 20%:
+[19  7  6  6]
+
+Battery Between 30% and 70%:
+[56 65 57 34 42]
+
+Average Battery: 53.2 %
+Minimum Battery: 6 %
+Maximum Battery: 97 %
+Variance: 996.8599999999999
+Standard Deviation: 31.573089807619397
+
+Readings Below Average: 9
+Sum of All Battery Readings: 1064 %
+
+Battery data saved to battery.csv
