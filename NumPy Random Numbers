@@ -1,0 +1,63 @@
+import numpy as np
+
+# 1. Random decimal number
+print("Random Decimal:", np.random.random())
+
+# 2. Generate 5 random decimal numbers
+print("5 Random Decimals:", np.random.random(5))
+
+# 3. Random integer
+print("Random Integer (1-9):", np.random.randint(1, 10))
+
+# 4. Dice simulation
+dice = np.random.randint(1, 7)
+print("Dice:", dice)
+
+# 5. Generate 10 random numbers from 1 to 100
+numbers = np.random.randint(1, 101, 10)
+print("10 Random Numbers:", numbers)
+
+# 6. Random choice
+students = np.array(["Arun", "Bala", "John", "Priya", "Ravi"])
+winner = np.random.choice(students)
+print("Random Student:", winner)
+
+# 7. Select 2 random students
+selected = np.random.choice(students, 2)
+print("Two Random Students:", selected)
+
+# 8. Shuffle
+numbers2 = np.array([1, 2, 3, 4, 5])
+np.random.shuffle(numbers2)
+print("Shuffled Numbers:", numbers2)
+
+# 9. Random Seed
+np.random.seed(42)
+print("Fixed Random Numbers:", np.random.randint(1, 100, 5))
+
+# 10. Dice Guessing Game
+student_guess = int(input("Guess dice number (1-6): "))
+
+computer = np.random.randint(1, 7)
+
+print("Computer generated:", computer)
+
+if student_guess == computer:
+    print("Congratulations! Correct guess.")
+else:
+    print("Try again!")
+
+OUTPUT:
+
+Random Decimal: 0.5678871580398953
+5 Random Decimals: [0.38827402 0.52899988 0.85267597 0.11001956 0.38621184]
+Random Integer (1-9): 9
+Dice: 3
+10 Random Numbers: [53 71 42 80 47 12 87  7 54 83]
+Random Student: Priya
+Two Random Students: ['Bala' 'Bala']
+Shuffled Numbers: [1 5 2 3 4]
+Fixed Random Numbers: [52 93 15 72 61]
+Guess dice number (1-6): 553
+Computer generated: 5
+Try again!
