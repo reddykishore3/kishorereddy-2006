@@ -1,0 +1,91 @@
+import numpy as np
+
+# 1. Generate temperatures for 30 days between 20°C and 45°C
+np.random.seed(42)
+temperatures = np.random.randint(20, 46, 30)
+
+print("30 Days Temperatures:")
+print(temperatures)
+
+# 2. Display temperatures of first 7 days
+print("\nFirst 7 Days:")
+print(temperatures[:7])
+
+# 3. Display Day 10 and Day 20 using indexing
+print("\nDay 10 Temperature:", temperatures[9])
+print("Day 20 Temperature:", temperatures[19])
+
+# 4. Filter temperatures above 35°C
+above_35 = temperatures[temperatures > 35]
+
+print("\nTemperatures Above 35°C:")
+print(above_35)
+
+# 5. Filter temperatures between 25°C and 30°C
+between_25_30 = temperatures[
+    (temperatures >= 25) & (temperatures <= 30)
+]
+
+print("\nTemperatures Between 25°C and 30°C:")
+print(between_25_30)
+
+# 6. Hottest and coolest temperature
+print("\nHottest Temperature:", np.max(temperatures), "°C")
+print("Coolest Temperature:", np.min(temperatures), "°C")
+
+# 7. Average and median temperature
+average = np.mean(temperatures)
+median = np.median(temperatures)
+
+print("\nAverage Temperature:", average, "°C")
+print("Median Temperature:", median, "°C")
+
+# 8. Variance and standard deviation
+print("Variance:", np.var(temperatures))
+print("Standard Deviation:", np.std(temperatures))
+
+# 9. Count days above monthly average
+count_above_average = np.sum(temperatures > average)
+
+print("\nDays Above Monthly Average:", count_above_average)
+
+# 10. Save temperatures into CSV file
+np.savetxt(
+    "temperature.csv",
+    temperatures,
+    delimiter=",",
+    header="Temperature_C",
+    comments="",
+    fmt="%d"
+)
+
+print("\nTemperature data saved to temperature.csv")
+
+OUTPUT:
+30 Days Temperatures:
+[26 39 34 30 27 40 26 45 38 42 30 30 43 40 23 27 43 22 41 40 21 43 31 25
+ 21 40 20 31 45 41]
+
+First 7 Days:
+[26 39 34 30 27 40 26]
+
+Day 10 Temperature: 42
+Day 20 Temperature: 40
+
+Temperatures Above 35°C:
+[39 40 45 38 42 43 40 43 41 40 43 40 45 41]
+
+Temperatures Between 25°C and 30°C:
+[26 30 27 26 30 30 27 25]
+
+Hottest Temperature: 45 °C
+Coolest Temperature: 20 °C
+
+Average Temperature: 33.46666666666667 °C
+Median Temperature: 32.5 °C
+Variance: 66.51555555555554
+Standard Deviation: 8.155706931686273
+
+Days Above Monthly Average: 15
+
+Temperature data saved to temperature.csv
